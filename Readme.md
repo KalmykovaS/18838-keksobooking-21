@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Светлана Калмыкова](https://up.htmlacademy.ru/javascript/21/user/18838).
-* Наставник: `Неизвестно`.
+* Наставник: `Кто-то`.
 
 ---
 
