@@ -2,7 +2,7 @@
 
 const TITLES = [`Хата с краю`, `Квартира в центре`, `Бунгало под мостом`, `Дворец пионеров`];
 const TYPES = [`palace`, `flat`, `house`, `bungalo`];
-const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
+// const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
 const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 const PHOTOS = [
   `http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
