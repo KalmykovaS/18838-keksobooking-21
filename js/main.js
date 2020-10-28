@@ -2,7 +2,7 @@
 
 const TITLES = [`Хата с краю`, `Квартира в центре`, `Бунгало под мостом`, `Дворец пионеров`];
 const TYPES = [`palace`, `flat`, `house`, `bungalo`];
-// const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
+const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
 const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 const PHOTOS = [
   `http://o0.github.io/assets/images/tokyo/hotel1.jpg`,
@@ -44,9 +44,10 @@ const getRandomLocation = function () {
 
 const generateMockItem = function (i) {
   let location = getRandomLocation();
+  let avatarIndex = i + 1;
   return /* pin: */ {
     'author': {
-      'avatar': `img/avatars/user0` + i + `.png`,
+      'avatar': `img/avatars/user0${avatarIndex}.png`, // user01..user08
     },
     'offer': {
       'title': getRandomItem(TITLES),
@@ -68,8 +69,7 @@ const generateMockItem = function (i) {
 const generateMockData = function () {
   let mockData = [];
   for (let i = 0; i < 8; i++) {
-    mockData[i] = generateMockItem(i + 1);
-    // почему +1?
+    mockData[i] = generateMockItem(i);
   }
   return mockData;
 };
@@ -96,3 +96,47 @@ for (let i = 0; i < dataPins.length; i++) {
 }
 
 pins.appendChild(fragment);
+
+const firstCard = generateMockData()[0];
+const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
+
+const renderCard = function (card) {
+  let cardElement = cardTemplate.cloneNode(true);
+  let typeIndex = TYPES.indexOf(card.offer.type);
+
+  cardElement.querySelector(`.popup__title`).textContent = card.offer.title;
+  cardElement.querySelector(`.popup__text--address`).textContent = card.offer.address;
+  cardElement.querySelector(`.popup__text--price`).textContent = `${card.offer.price}₽/ночь`;
+  cardElement.querySelector(`.popup__type`).textContent = TYPES_LOCAL[typeIndex];
+  cardElement.querySelector(`.popup__text--capacity`).textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
+  cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+
+  let featuresCard = cardElement.querySelector(`.popup__features`);
+  featuresCard.innerHTML = ``;
+  for (let j = 0; j < card.offer.features.length; j++) {
+    let item = document.createElement(`li`);
+    item.classList.add(`popup__feature`);
+    item.classList.add(`popup__feature--${card.offer.features[j]}`);
+    featuresCard.appendChild(item);
+  }
+
+  cardElement.querySelector(`.popup__description`).textContent = card.offer.description;
+
+  let imgElement = cardElement.querySelector(`.popup__photo`).cloneNode(true);
+  let photosCard = cardElement.querySelector(`.popup__photos`);
+  photosCard.innerHTML = ``;
+  for (let k = 0; k < card.offer.photos.length; k++) {
+    let itemImg = imgElement.cloneNode(true);
+    // тут нужен cloneNode(true)?
+    // отображаются только 2 картинки
+
+    itemImg.src = card.offer.photos[k];
+    photosCard.appendChild(itemImg);
+  }
+
+  cardElement.querySelector(`.popup__avatar`).src = card.author.avatar;
+
+  return cardElement;
+};
+
+document.querySelector(`.map`).appendChild(renderCard(firstCard));
