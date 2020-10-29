@@ -127,9 +127,6 @@ const renderCard = function (card) {
   photosCard.innerHTML = ``;
   for (let k = 0; k < card.offer.photos.length; k++) {
     let itemImg = imgElement.cloneNode(true);
-    // тут нужен cloneNode(true)?
-    // отображаются только 2 картинки
-
     itemImg.src = card.offer.photos[k];
     photosCard.appendChild(itemImg);
   }
