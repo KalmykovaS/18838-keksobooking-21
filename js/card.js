@@ -4,7 +4,16 @@
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
   const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
 
+  const removeCard = () => {
+    let popup = document.querySelector(`.map__card.popup`);
+    if (popup) {
+      popup.remove();
+    }
+  };
+
   const renderCard = (card) => {
+    removeCard();
+
     let cardElement = cardTemplate.cloneNode(true);
     let typeIndex = window.main.TYPES.indexOf(card.offer.type);
 
@@ -48,5 +57,8 @@
     return cardElement;
   };
 
-  window.card = {renderCard};
+  window.card = {
+    renderCard,
+    removeCard
+  };
 })();
