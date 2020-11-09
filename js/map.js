@@ -47,11 +47,7 @@
   document.addEventListener(`keydown`, (evt) => {
     if (evt.key === `Escape`) {
       evt.preventDefault();
-      let popup = document.querySelector(`.map__card.popup`);
-      if (popup) {
-        popup.remove();
-        // forEach(popup => popup.remove())
-      }
+      window.card.removeCard();
     }
   });
 
