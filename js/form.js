@@ -88,4 +88,11 @@
   formType.addEventListener(`change`, onTypeChange);
   formTimein.addEventListener(`change`, syncSelectedIndices(formTimein, formTimeout));
   formTimeout.addEventListener(`change`, syncSelectedIndices(formTimeout, formTimein));
+
+  // adForm.addEventListener(`submit`, () => {
+  //   window.upload(new FormData(adForm), (response) => {
+  //     // при отправке формы воспользуемся нашей функцией upload и отменим действие формы по умолчанию
+  //   });
+  // });
+
 })();

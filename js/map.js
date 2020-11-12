@@ -6,15 +6,19 @@
   const pins = document.querySelector(`.map__pins`);
   const mapPinMain = window.main.mapPinMain;
 
+  const createLocation = (x, y) => {
+    return {x, y};
+  };
+
   const getMainPinCenterLocation = () => {
     let mainPinTop = parseInt(mapPinMain.style.top, 10);
     let mainPinLeft = parseInt(mapPinMain.style.left, 10);
 
-    return window.data.createLocation(mainPinLeft, mainPinTop);
+    return createLocation(mainPinLeft, mainPinTop);
   };
 
-  const populatePins = () => {
-    const dataPins = window.data.generateMockData();
+  // вот тут обернуть в функцию для отправки данных на сервер
+  const populatePins = (dataPins) => {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < dataPins.length; i++) {
       let pin = window.pin.renderPin(dataPins[i]);
