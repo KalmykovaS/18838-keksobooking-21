@@ -3,6 +3,7 @@
 (() => {
   const MAIN_PIN_HEIGHT = 84;
   const MAIN_PIN_HALF_WIDTH = 31;
+  const MAIN_PIN_HALF_EDGE_DEFAULT = 32;
   const MAIN_PIN_TOP_DEFAULT = 375;
   const MAIN_PIN_LEFT_DEFAULT = 570;
   const pins = document.querySelector(`.map__pins`);
@@ -16,7 +17,7 @@
     let mainPinTop = parseInt(mapPinMain.style.top, 10);
     let mainPinLeft = parseInt(mapPinMain.style.left, 10);
 
-    return createLocation(mainPinLeft, mainPinTop);
+    return createLocation(mainPinLeft + MAIN_PIN_HALF_EDGE_DEFAULT, mainPinTop + MAIN_PIN_HALF_EDGE_DEFAULT);
   };
 
   const resetMainPinLocation = () => {
