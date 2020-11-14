@@ -2,7 +2,7 @@
 
 (() => {
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
-  const TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
+  const HOUSING_TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
 
   const removeCard = () => {
     let popup = document.querySelector(`.map__card.popup`);
@@ -15,12 +15,12 @@
     removeCard();
 
     let cardElement = cardTemplate.cloneNode(true);
-    let typeIndex = window.main.TYPES.indexOf(card.offer.type);
+    let typeIndex = window.main.HOUSING_TYPES.indexOf(card.offer.type);
 
     cardElement.querySelector(`.popup__title`).textContent = card.offer.title;
     cardElement.querySelector(`.popup__text--address`).textContent = card.offer.address;
     cardElement.querySelector(`.popup__text--price`).textContent = `${card.offer.price}₽/ночь`;
-    cardElement.querySelector(`.popup__type`).textContent = TYPES_LOCAL[typeIndex];
+    cardElement.querySelector(`.popup__type`).textContent = HOUSING_TYPES_LOCAL[typeIndex];
     cardElement.querySelector(`.popup__text--capacity`).textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
     cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
 

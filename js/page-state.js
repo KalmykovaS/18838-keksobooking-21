@@ -46,7 +46,9 @@
 
     removeError();
     updatePageState(activated);
-    window.map.populatePins(data);
+    window.main.data = data;
+    const filteredData = window.filter.filterData(data);
+    window.map.populatePins(filteredData);
   };
 
   const errorHandler = (errorMessage) => {
