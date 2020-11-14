@@ -6,6 +6,7 @@
   const map = window.main.map;
   const mapPinMain = window.main.mapPinMain;
   const getMainPinLocation = window.map.getMainPinLocation;
+  const getMainPinCenterLocation = window.map.getMainPinCenterLocation;
   const updateAddressLocation = window.map.updateAddressLocation;
 
   const enableControls = (enabled, controlsContainer) => {
@@ -19,9 +20,24 @@
   };
 
   const removeError = () => {
-    let errorNode = document.querySelector(`#error`);
+    let errorNode = document.querySelector(`#load_error`);
     if (errorNode) {
       errorNode.remove();
+    }
+  };
+
+  const updatePageState = (activated) => {
+    enableControls(activated, adForm);
+    enableControls(activated, mapFilters);
+    if (activated) {
+      map.classList.remove(`map--faded`);
+      adForm.classList.remove(`ad-form--disabled`);
+      updateAddressLocation(getMainPinLocation());
+    } else {
+      map.classList.add(`map--faded`);
+      adForm.classList.add(`ad-form--disabled`);
+      window.map.resetMainPinLocation();
+      updateAddressLocation(getMainPinCenterLocation());
     }
   };
 
@@ -29,10 +45,7 @@
     activated = true;
 
     removeError();
-    enableControls(activated, adForm);
-    enableControls(activated, mapFilters);
-    map.classList.remove(`map--faded`);
-    adForm.classList.remove(`ad-form--disabled`);
+    updatePageState(activated);
     window.map.populatePins(data);
   };
 
@@ -40,7 +53,7 @@
     removeError();
 
     let node = document.createElement(`div`);
-    node.id = `error`;
+    node.id = `load_error`;
     node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: rgba(255,0,0,0.7);`;
     node.style.position = `absolute`;
     node.style.left = 0;
@@ -55,6 +68,12 @@
   const activatePage = () => {
     window.load(successHandler, errorHandler);
   };
+  const deactivatePage = () => {
+    activated = false;
+    updatePageState(activated);
+    window.map.clearPins();
+    window.card.removeCard();
+  };
 
   let activated = false;
   enableControls(activated, adForm);
@@ -68,8 +87,6 @@
     if (!activated) {
       activatePage();
     }
-
-    updateAddressLocation(getMainPinLocation());
   });
 
   mapPinMain.addEventListener(`keydown`, (evt) => {
@@ -80,7 +97,10 @@
     if (!activated) {
       activatePage();
     }
-
-    updateAddressLocation(getMainPinLocation());
   });
+
+  window.pageState = {
+    activatePage,
+    deactivatePage
+  };
 })();

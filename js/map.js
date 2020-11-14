@@ -3,6 +3,8 @@
 (() => {
   const MAIN_PIN_HEIGHT = 84;
   const MAIN_PIN_HALF_WIDTH = 31;
+  const MAIN_PIN_TOP_DEFAULT = 375;
+  const MAIN_PIN_LEFT_DEFAULT = 570;
   const pins = document.querySelector(`.map__pins`);
   const mapPinMain = window.main.mapPinMain;
 
@@ -17,7 +19,11 @@
     return createLocation(mainPinLeft, mainPinTop);
   };
 
-  // вот тут обернуть в функцию для отправки данных на сервер
+  const resetMainPinLocation = () => {
+    mapPinMain.style.top = `${MAIN_PIN_TOP_DEFAULT}px`;
+    mapPinMain.style.left = `${MAIN_PIN_LEFT_DEFAULT}px`;
+  };
+
   const populatePins = (dataPins) => {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < dataPins.length; i++) {
@@ -29,6 +35,10 @@
     }
 
     pins.appendChild(fragment);
+  };
+
+  const clearPins = () => {
+    document.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((node) => node.remove());
   };
 
   const getMainPinLocation = () => {
@@ -57,7 +67,10 @@
 
   window.map = {
     populatePins,
+    clearPins,
     getMainPinLocation,
-    updateAddressLocation
+    getMainPinCenterLocation,
+    updateAddressLocation,
+    resetMainPinLocation
   };
 })();
