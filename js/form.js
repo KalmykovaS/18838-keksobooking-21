@@ -14,6 +14,11 @@
   const formCapacity = adForm.querySelector(`#capacity`);
   const formTimein = adForm.querySelector(`#timein`);
   const formTimeout = adForm.querySelector(`#timeout`);
+  const formReset = adForm.querySelector(`.ad-form__reset`);
+
+  const successMessageTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
+  const errorMessageTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
+  const main = document.querySelector(`main`);
 
   const onTitleChange = () => {
     let valueTitleLength = formTitle.value.length;
@@ -89,10 +94,51 @@
   formTimein.addEventListener(`change`, syncSelectedIndices(formTimein, formTimeout));
   formTimeout.addEventListener(`change`, syncSelectedIndices(formTimeout, formTimein));
 
-  // adForm.addEventListener(`submit`, () => {
-  //   window.upload(new FormData(adForm), (response) => {
-  //     // при отправке формы воспользуемся нашей функцией upload и отменим действие формы по умолчанию
-  //   });
-  // });
 
+  let modalMessage;
+  const onModalMessageClick = (evt) => {
+    if (modalMessage) {
+      evt.preventDefault();
+      modalMessage.remove();
+      modalMessage = null;
+    }
+  };
+  const modalMessageEscPressHandler = (evt) => {
+    if (modalMessage && evt.key === `Escape`) {
+      evt.preventDefault();
+      modalMessage.remove();
+      modalMessage = null;
+    }
+  };
+  document.addEventListener(`click`, onModalMessageClick);
+  document.addEventListener(`keydown`, modalMessageEscPressHandler);
+
+
+  const resetForm = () => {
+    adForm.reset();
+    updateMinPricePlaceholder();
+    window.map.updateAddressLocation(window.map.getMainPinLocation());
+  };
+  const onResetForm = (evt) => {
+    evt.preventDefault();
+    resetForm();
+  };
+  const successHandler = () => {
+    modalMessage = successMessageTemplate.cloneNode(true);
+    main.insertAdjacentElement(`afterbegin`, modalMessage);
+
+    resetForm();
+    window.pageState.deactivatePage();
+  };
+  const errorHandler = () => {
+    modalMessage = errorMessageTemplate.cloneNode(true);
+    main.insertAdjacentElement(`afterbegin`, modalMessage);
+  };
+
+  adForm.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+    window.upload(new FormData(adForm), successHandler, errorHandler);
+  });
+
+  formReset.addEventListener(`click`, onResetForm);
 })();

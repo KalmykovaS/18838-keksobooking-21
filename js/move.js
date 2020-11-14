@@ -4,7 +4,10 @@
   const MIN_Y = 130;
   const MAX_Y = 630;
   const mapPinMain = window.main.mapPinMain;
+  const getMainPinLocation = window.map.getMainPinLocation;
+  const updateAddressLocation = window.map.updateAddressLocation;
   const pins = document.querySelector(`.map__pins`);
+
 
   mapPinMain.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
@@ -46,6 +49,8 @@
 
       mapPinMain.style.top = `${newTopCoordinate}px`;
       mapPinMain.style.left = `${newLeftCoordinate}px`;
+
+      updateAddressLocation(getMainPinLocation());
     };
 
     let onMouseUp;
