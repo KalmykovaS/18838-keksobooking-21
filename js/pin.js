@@ -1,9 +1,9 @@
 'use strict';
 
 (() => {
-  const pinsTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
   const PIN_HEIGHT = 70;
   const PIN_HALF_WIDTH = 25;
+  const pinsTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
   const renderPin = (pin) => {
     let pinsElement = pinsTemplate.cloneNode(true);
@@ -15,5 +15,7 @@
     return pinsElement;
   };
 
-  window.pin = {renderPin};
+  window.pin = {
+    renderPin
+  };
 })();

@@ -1,13 +1,21 @@
 'use strict';
 
 (() => {
-  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
   const HOUSING_TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
+  const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
 
   const removeCard = () => {
     let popup = document.querySelector(`.map__card.popup`);
     if (popup) {
       popup.remove();
+    }
+    deleteActivePinClass();
+  };
+
+  const deleteActivePinClass = () => {
+    const activePin = document.querySelector(`.map__pin--active`);
+    if (activePin) {
+      activePin.classList.remove(`map__pin--active`);
     }
   };
 
@@ -50,6 +58,7 @@
     let onPopupClose;
     onPopupClose = () => {
       cardElement.remove();
+      deleteActivePinClass();
       popupClose.removeEventListener(`click`, onPopupClose);
     };
     popupClose.addEventListener(`click`, onPopupClose);

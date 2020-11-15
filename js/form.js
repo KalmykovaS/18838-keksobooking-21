@@ -118,7 +118,9 @@
     adForm.reset();
     updateMinPricePlaceholder();
     window.map.updateAddressLocation(window.map.getMainPinLocation());
+    window.pageState.deactivatePage();
   };
+
   const onResetForm = (evt) => {
     evt.preventDefault();
     resetForm();
