@@ -1,5 +1,5 @@
 'use strict';
-// загружаем данные на сервер
+
 (() => {
   const URL = `https://21.javascript.pages.academy/keksobooking`;
 

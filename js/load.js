@@ -1,5 +1,5 @@
 'use strict';
-// получаем данные с сервера
+
 (() => {
   const URL = `https://21.javascript.pages.academy/keksobooking/data`;
   const StatusCode = {
