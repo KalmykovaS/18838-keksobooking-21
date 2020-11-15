@@ -1,9 +1,8 @@
 'use strict';
 
 (() => {
-  const MAIN_PIN_HEIGHT = 84;
-  const MAIN_PIN_HALF_WIDTH = 31;
-  const MAIN_PIN_HALF_EDGE_DEFAULT = 32;
+  const MAIN_PIN_HEAD_HEIGHT = 84;
+  const MAIN_PIN_HALF_EDGE_DEFAULT = 31;
   const MAIN_PIN_TOP_DEFAULT = 375;
   const MAIN_PIN_LEFT_DEFAULT = 570;
   const pins = document.querySelector(`.map__pins`);
@@ -31,6 +30,7 @@
       let pin = window.pin.renderPin(dataPins[i]);
       pin.addEventListener(`click`, () => {
         window.main.map.appendChild(window.card.renderCard(dataPins[i]));
+        pin.classList.add(`map__pin--active`);
       });
       fragment.appendChild(pin);
     }
@@ -45,8 +45,7 @@
   const getMainPinLocation = () => {
     let location = getMainPinCenterLocation();
 
-    location.x -= MAIN_PIN_HALF_WIDTH;
-    location.y -= MAIN_PIN_HEIGHT;
+    location.y += (MAIN_PIN_HEAD_HEIGHT / 2);
 
     return location;
   };
