@@ -3,6 +3,7 @@
 (() => {
   const MIN_Y = 130;
   const MAX_Y = 630;
+  const MAIN_PIN_HEAD_HEIGHT = 84;
   const mapPinMain = window.main.mapPinMain;
   const getMainPinLocation = window.map.getMainPinLocation;
   const updateAddressLocation = window.map.updateAddressLocation;
@@ -37,8 +38,8 @@
       let newTopCoordinate = mapPinMain.offsetTop - shift.y;
       let newLeftCoordinate = mapPinMain.offsetLeft - shift.x;
 
-      newTopCoordinate = Math.max(newTopCoordinate, MIN_Y);
-      newTopCoordinate = Math.min(newTopCoordinate, MAX_Y);
+      newTopCoordinate = Math.max(newTopCoordinate, MIN_Y - MAIN_PIN_HEAD_HEIGHT);
+      newTopCoordinate = Math.min(newTopCoordinate, MAX_Y - MAIN_PIN_HEAD_HEIGHT);
 
       let pinsBounds = pins.getBoundingClientRect();
       let minX = 0;

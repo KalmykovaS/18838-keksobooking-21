@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const MAIN_PIN_HEAD_HEIGHT = 84;
+  const MAIN_PIN_MARK_HEIGHT = 22;
   const MAIN_PIN_HALF_EDGE_DEFAULT = 31;
   const MAIN_PIN_TOP_DEFAULT = 375;
   const MAIN_PIN_LEFT_DEFAULT = 570;
@@ -45,7 +45,7 @@
   const getMainPinLocation = () => {
     let location = getMainPinCenterLocation();
 
-    location.y += (MAIN_PIN_HEAD_HEIGHT / 2);
+    location.y += (MAIN_PIN_HALF_EDGE_DEFAULT + MAIN_PIN_MARK_HEIGHT);
 
     return location;
   };
@@ -57,13 +57,6 @@
 
   let mainPinAddressLocation = getMainPinCenterLocation();
   updateAddressLocation(mainPinAddressLocation);
-
-  document.addEventListener(`keydown`, (evt) => {
-    if (evt.key === `Escape`) {
-      evt.preventDefault();
-      window.card.removeCard();
-    }
-  });
 
   window.map = {
     populatePins,

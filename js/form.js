@@ -65,7 +65,7 @@
   };
 
   const validateRoomCapacity = () => {
-    if (formRoomNumber.value === 100 && formCapacity.value !== 0) {
+    if (formRoomNumber.value === `100` && formCapacity.value !== `0`) {
       formCapacity.setCustomValidity(`Простите, но 100 комнат - не для гостей!`);
     } else if (formRoomNumber.value < formCapacity.value) {
       formCapacity.setCustomValidity(`Выберите большее количество комнат`);
@@ -139,7 +139,7 @@
 
   adForm.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
-    window.upload(new FormData(adForm), successHandler, errorHandler);
+    window.backend.upload(new FormData(adForm), successHandler, errorHandler);
   });
 
   formReset.addEventListener(`click`, onResetForm);

@@ -68,7 +68,7 @@
   };
 
   const activatePage = () => {
-    window.load(successHandler, errorHandler);
+    window.backend.load(successHandler, errorHandler);
   };
   const deactivatePage = () => {
     activated = false;

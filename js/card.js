@@ -4,12 +4,19 @@
   const HOUSING_TYPES_LOCAL = [`Дворец`, `Квартира`, `Дом`, `Бунгало`];
   const cardTemplate = document.querySelector(`#card`).content.querySelector(`.map__card.popup`);
 
+  let onPopupEscapeClose = (evt) => {
+    if (evt.key === `Escape`) {
+      removeCard();
+    }
+  };
+
   const removeCard = () => {
     let popup = document.querySelector(`.map__card.popup`);
     if (popup) {
       popup.remove();
     }
     deleteActivePinClass();
+    document.removeEventListener(`keydown`, onPopupEscapeClose);
   };
 
   const deleteActivePinClass = () => {
@@ -57,11 +64,11 @@
     let popupClose = cardElement.querySelector(`.popup__close`);
     let onPopupClose;
     onPopupClose = () => {
-      cardElement.remove();
-      deleteActivePinClass();
+      removeCard();
       popupClose.removeEventListener(`click`, onPopupClose);
     };
     popupClose.addEventListener(`click`, onPopupClose);
+    document.addEventListener(`keydown`, onPopupEscapeClose);
 
     return cardElement;
   };
